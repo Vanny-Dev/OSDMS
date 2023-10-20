@@ -33,9 +33,9 @@
 						<div class="form-group">
 							<label for="" class="control-label">Avatar</label>
 							<div class="custom-file">
-		                      <input type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))">
-		                      <label class="custom-file-label" for="customFile">Choose file</label>
-		                    </div>
+                <input type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
 						</div>
 						<div class="form-group d-flex justify-content-center">
 							<img src="<?php echo isset($avatar) ? 'assets/uploads/'.$avatar :'' ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label class="control-label">Password</label>
 							<input type="password" class="form-control form-control-sm" name="password" <?php echo isset($id) ? "":'required' ?>>
-							<small><i><?php echo isset($id) ? "Leave this blank if you dont want to change you password":'' ?></i></small>
+							<small><i><?php echo isset($id) ? "Leave this blank if you dont want to change your password":'' ?></i></small>
 						</div>
 						<div class="form-group">
 							<label class="label control-label">Confirm Password</label>
@@ -88,9 +88,9 @@
 	$('[name="password"],[name="cpass"]').keyup(function(){
 		var pass = $('[name="password"]').val()
 		var cpass = $('[name="cpass"]').val()
-		if(cpass == '' ||pass == ''){
+		if (cpass == '' ||pass == '' ) {
 			$('#pass_match').attr('data-status','')
-		}else{
+		} else {
 			if(cpass == pass){
 				$('#pass_match').attr('data-status','1').html('<i class="text-success">Password Matched.</i>')
 			}else{
@@ -98,46 +98,64 @@
 			}
 		}
 	})
-	function displayImg(input,_this) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	        	$('#cimg').attr('src', e.target.result);
-	        }
+	function displayImg(input, _this) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+		  reader.onload = e => {
+    		$('#cimg').attr('src', e.target.result);
+      }
 
-	        reader.readAsDataURL(input.files[0]);
-	    }
+      reader.readAsDataURL(input.files[0]);
+    }
 	}
-	$('#manage_user').submit(function(e){
+
+	$('#manage_user').submit(async e => {
 		e.preventDefault()
 		$('input').removeClass("border-danger")
 		start_load()
 		$('#msg').html('')
-		if($('#pass_match').attr('data-status') != 1){
-			if($("[name='password']").val() !=''){
+		if ($('#pass_match').attr('data-status') != 1) {
+			if ($("[name='password']").val() != '') {
 				$('[name="password"],[name="cpass"]').addClass("border-danger")
 				end_load()
 				return false;
 			}
 		}
+		
+		const data = new FormData($('#manage_user')[0]);
+
+		// trim first and last name
+
+		const first = data.get('firstname');
+		const last = data.get('lastname');
+
+		data.set('firstname', first.trim());
+		data.set('lastname', last.trim());
+
+		if (!data.get("img").name) {
+			const f = await fetch("https://dummyimage.com/512");
+			data.set("img", new File([await f.blob()], "img-" + first));
+		}
+
 		$.ajax({
 			url:'ajax.php?action=save_user',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp == 1){
+			data,
+	    cache: false,
+	    contentType: false,
+	    processData: false,
+	    method: 'POST',
+	    type: 'POST',
+	    success: resp => {
+	    	console.log(resp)
+				if (resp == 1) {
 					alert_toast('Data successfully saved.',"success");
-					setTimeout(function(){
+					setTimeout(() => {
 						location.replace('index.php?page=user_list')
-					},750)
-				}else if(resp == 2){
+					}, 750);
+				} else if (resp == 2) {
 					$('#msg').html("<div class='alert alert-danger'>Email already exist.</div>");
-					$('[name="email"]').addClass("border-danger")
-					end_load()
+					$('[name="email"]').addClass("border-danger");
+					end_load();
 				}
 			}
 		})

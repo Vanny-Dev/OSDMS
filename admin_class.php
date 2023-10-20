@@ -18,16 +18,17 @@ Class Action {
 	function login(){
 		extract($_POST);
 			$qry = $this->db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
-		if($qry->num_rows > 0){
+		if ($qry->num_rows > 0) {
 			foreach ($qry->fetch_array() as $key => $value) {
-				if($key != 'password' && !is_numeric($key))
+				if ($key != 'password' && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
-				return 1;
-		}else{
+			return 1;
+		} else {
 			return 3;
 		}
 	}
+
 	function logout(){
 		session_destroy();
 		foreach ($_SESSION as $key => $value) {
@@ -52,26 +53,29 @@ Class Action {
 		}
 
 		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
-		if($check > 0){
+		
+		if ($check > 0) {
 			return 2;
 			exit;
 		}
-		if($_FILES['img']['tmp_name'] != ''){
+
+		if ($_FILES['img']['tmp_name'] != '') {
 			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
 			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
 			$data .= ", avatar = '$fname' ";
-
 		}
-		if(empty($id)){
+
+		if (empty($id)) {
 			$save = $this->db->query("INSERT INTO users set $data");
-		}else{
+		} else {
 			$save = $this->db->query("UPDATE users set $data where id = $id");
 		}
 
-		if($save){
+		if ($save) {
 			return 1;
 		}
 	}
+
 	function update_user(){
 		extract($_POST);
 		$data = "";
@@ -122,11 +126,11 @@ Class Action {
 	function upload_file(){
 		extract($_FILES['file']);
 		// var_dump($_FILES);
-		if($tmp_name != ''){
+		if ($tmp_name != '') {
 				$fname = strtotime(date('y-m-d H:i')).'_'.$name;
 				$move = move_uploaded_file($tmp_name,'assets/uploads/'. $fname);
 		}
-		if(isset($move) && $move){
+		if (isset($move) && $move) {
 			return json_encode(array("status"=>1,"fname"=>$fname));
 		}
 	}

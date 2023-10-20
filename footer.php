@@ -78,7 +78,7 @@
 	     $('#confirm_modal').modal('show')
 	  }
 	   
-	   window.alert_toast= function($msg = 'TEST',$bg = 'success' ,$pos=''){
+	   window.alert_toast = function($msg = 'TEST',$bg = 'success' ,$pos=''){
 	   	var Toast = Swal.mixin({
 	      toast: true,
 	      position: $pos || 'top-end',
