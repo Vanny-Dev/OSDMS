@@ -27,7 +27,6 @@
                 Dashboard
               </p>
             </a>
-            
           </li>    
         <?php if($_SESSION['login_type'] == 1): ?>
           <li class="nav-item">
@@ -111,11 +110,11 @@
   		if($('.nav-link.nav-'+page).length > 0){
   			$('.nav-link.nav-'+page).addClass('active')
           console.log($('.nav-link.nav-'+page).hasClass('tree-item'))
-  			if($('.nav-link.nav-'+page).hasClass('tree-item') == true){
+  			if($('.nav-link.nav-'+page).hasClass('tree-item')){
           $('.nav-link.nav-'+page).closest('.nav-treeview').siblings('a').addClass('active')
   				$('.nav-link.nav-'+page).closest('.nav-treeview').parent().addClass('menu-open')
   			}
-        if($('.nav-link.nav-'+page).hasClass('nav-is-tree') == true){
+        if($('.nav-link.nav-'+page).hasClass('nav-is-tree')){
           $('.nav-link.nav-'+page).parent().addClass('menu-open')
         }
 

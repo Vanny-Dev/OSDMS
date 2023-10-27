@@ -103,6 +103,20 @@ ALTER TABLE `documents`
 --
 ALTER TABLE `users`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE permissions (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  document_id INT NOT NULL UNIQUE,
+  due_date datetime,
+  FOREIGN KEY (document_id)
+    REFERENCES documents(id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

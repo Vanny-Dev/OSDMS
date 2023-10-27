@@ -10,21 +10,21 @@
 <script src="assets/plugins/dropzone/min/dropzone.min.js"></script>
 <script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
-	$(document).ready(function(){
+	$(document).ready(() => {
 	  $('.select2').select2({
 	    placeholder:"Please select here",
 	    width: "100%"
 	  });
   })
-	 window.start_load = function(){
+	 window.start_load = () => {
 	    $('body').prepend('<div id="preloader2"></div>')
 	  }
-	  window.end_load = function(){
+	  window.end_load = () => {
 	    $('#preloader2').fadeOut('fast', function() {
 	        $(this).remove();
 	      })
 	  }
-	 window.viewer_modal = function($src = ''){
+	 window.viewer_modal = ($src = '') => {
 	    start_load()
 	    var t = $src.split('.')
 	    t = t[1]
@@ -36,43 +36,43 @@
 	    $('#viewer_modal .modal-content video,#viewer_modal .modal-content img').remove()
 	    $('#viewer_modal .modal-content').append(view)
 	    $('#viewer_modal').modal({
-	            show:true,
-	            backdrop:'static',
-	            keyboard:false,
-	            focus:true
-	          })
-	          end_load()  
+        show:true,
+        backdrop:'static',
+        keyboard:false,
+        focus:true
+      })
+      end_load()  
 
 	}
-	  window.uni_modal = function($title = '' , $url='',$size=""){
+	  window.uni_modal = function($title = '', $url='', $size=""){
 	      start_load()
 	      $.ajax({
-	          url:$url,
-	          error:err=>{
-	              console.log()
-	              alert("An error occured")
-	          },
-	          success:function(resp){
-	              if(resp){
-	                  $('#uni_modal .modal-title').html($title)
-	                  $('#uni_modal .modal-body').html(resp)
-	                  if($size != ''){
-	                      $('#uni_modal .modal-dialog').addClass($size)
-	                  }else{
-	                      $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md")
-	                  }
-	                  $('#uni_modal').modal({
-	                    show:true,
-	                    backdrop:'static',
-	                    keyboard:false,
-	                    focus:true
-	                  })
-	                  end_load()
-	              }
-	          }
-	      })
+          url: $url,
+          error: err => {
+            console.log()
+            alert("An error occured")
+          },
+          success: resp => {
+            if (resp) {
+                $('#uni_modal .modal-title').html($title)
+                $('#uni_modal .modal-body').html(resp)
+                if ($size != '') {
+                    $('#uni_modal .modal-dialog').addClass($size)
+                } else {
+                    $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md")
+                }
+                $('#uni_modal').modal({
+                  show:true,
+                  backdrop:'static',
+                  keyboard:false,
+                  focus:true
+                })
+                end_load()
+            }
+          }
+      	})
 	  }
-	  window._conf = function($msg='',$func='',$params = []){
+	  window._conf = ($msg='', $func='', $params = []) => {
 	     $('#confirm_modal #confirm').attr('onclick',$func+"("+$params.join(',')+")")
 	     $('#confirm_modal .modal-body').html($msg)
 	     $('#confirm_modal').modal('show')

@@ -3,6 +3,13 @@ ob_start();
 $action = $_GET['action'];
 include 'admin_class.php';
 $crud = new Action();
+
+if ($action === 'add_permission') {
+	$add_perm = $crud->add_permission();
+	if ($add_perm)
+		echo $add_perm;
+}
+
 if($action == 'login'){
 	$login = $crud->login();
 	if($login)
