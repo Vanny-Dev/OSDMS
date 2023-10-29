@@ -7,7 +7,7 @@
 ?>
 <?php
 if(empty($_SESSION['login_id'])) {
-  header('location: index.php');
+  header('location: login.php');
 }
 ?>
 <body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-collapse">
