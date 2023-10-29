@@ -5,7 +5,7 @@
   ob_start();
   $title = isset($_GET['page']) ? ucwords(str_replace("_", ' ', $_GET['page'])) : "Home";
   ?>
-  <title><?php echo $title ?> | Online Document Sharing System</title>
+  <title><?php echo $title ?> | Online School Document Management Systems</title>
   <?php ob_end_flush() ?>
 
   <!-- Google Font: Source Sans Pro -->

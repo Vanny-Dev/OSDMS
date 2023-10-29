@@ -101,10 +101,10 @@ if(empty($_SESSION['login_id'])) {
   </div>
   
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="https://www.sourcecodester.com/">sourcecodester.com</a>.</strong>
+    <strong>Copyright &copy; 2023</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Online Document Sharing System</b>
+      <b>Online School Document Management Systems</b>
     </div>
   </footer>
 </div>
