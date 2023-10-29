@@ -3,6 +3,12 @@
 <?php session_start() ?>
 <?php 
 	include 'header.php' 
+  
+?>
+<?php
+if(empty($_SESSION['login_id'])) {
+  header('location: index.php');
+}
 ?>
 <body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-collapse">
 <div class="wrapper">
