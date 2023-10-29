@@ -10,6 +10,10 @@ if(empty($_SESSION['login_id'])) {
   header('location: index.php');
 }
 ?>
+<?php 
+	include 'sidebar.php' 
+  
+?>
 <body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-collapse">
 <div class="wrapper">
   <?php include 'topbar.php' ?>
