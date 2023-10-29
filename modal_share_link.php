@@ -8,7 +8,7 @@ function url(){
     }
     $base = explode("/",$_SERVER['REQUEST_URI'],3);
     $base = $base[1];
-    return $protocol . "://" . $_SERVER['HTTP_HOST'] .'/'. $base;
+    return $protocol . "://" . $_SERVER['HTTP_HOST'] /*.'/'. $base*/;
 }
 ?>
 <div class="container-fluid">
