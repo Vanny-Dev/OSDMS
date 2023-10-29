@@ -144,7 +144,7 @@ $db = $conn;
         </script>
     		<div class="d-flex w-100 justify-content-center align-items-center">
     			<button class="btn btn-flat bg-gradient-primary mx-2" form="manage-upload">Save</button>
-    			<button class="btn btn-flat bg-gradient-secondary mx-2" type="button">Cancel</button>
+    			<button class="btn btn-flat bg-gradient-secondary mx-2" type="button" onclick="cancel()">Cancel</button>
     		</div>
     	</div>
       <?php include "modals/add_perm_modal.php" ?>
@@ -261,4 +261,7 @@ $(function () {
 			}
 		})
 	})
+  function cancel() {
+            location.href = "index.php?page=document_list";
+        }
 </script>
