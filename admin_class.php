@@ -15,6 +15,28 @@ Class Action {
 	    ob_end_flush();
 	}
 
+	function revoke_permission(){
+		
+	}
+
+	function add_permission(){
+		$documentId = $_POST['documentId'];
+		$dueDate = $_POST['dueDate'];
+		$stmt = $this->db->prepare("INSERT INTO permissions (document_id, due_date) VALUES (?, ?)");
+		try {
+			$stmt->execute([$documentId, $dueDate == 'null' ? NULL : $dueDate]);
+			return 1;
+		} catch (Exception $e) {
+			if (str_contains(strtolower($e->getMessage()), "duplicate entry")) {
+				/* unique constraint failed */
+				return 2;
+			} else {
+				/* unknown error */
+				return 3;
+			}
+		}
+	}
+
 	function login(){
 		extract($_POST);
 			$qry = $this->db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
@@ -144,9 +166,9 @@ Class Action {
 		extract($_POST);
 		$doc = $this->db->query("SELECT * FROM documents where id= $id")->fetch_array();
 		$delete = $this->db->query("DELETE FROM documents where id = ".$id);
-		if($delete){
-			foreach(json_decode($doc['file_json']) as $k => $v){
-				if(is_file('assets/uploads/'.$v))
+		if ($delete) {
+			foreach (json_decode($doc['file_json']) as $k => $v) {
+				if (is_file('assets/uploads/'.$v))
 				unlink('assets/uploads/'.$v);
 			}
 			return 1;
@@ -154,17 +176,19 @@ Class Action {
 	}
 	function save_upload(){
 		extract($_POST);
-		// var_dump($_FILES);
+
 		$data = " title ='$title' ";
-		$data .= ", description ='".htmlentities(str_replace("'","&#x2019;",$description))."' ";
+		$data .= ", description ='" . htmlentities(str_replace("'","&#x2019;",$description)) . "' ";
 		$data .= ", user_id ='{$_SESSION['login_id']}' ";
-		$data .= ", file_json ='".json_encode($fname)."' ";
-		if(empty($id)){
+		$data .= ", file_json ='" . json_encode($fname) . "' ";
+
+		if (empty($id)) {
 			$save = $this->db->query("INSERT INTO documents set $data ");
-		}else{
+		} else {
 			$save = $this->db->query("UPDATE documents set $data where id = $id");
 		}
-		if($save){
+
+		if ($save) {
 			return 1;
 		}
 	}
