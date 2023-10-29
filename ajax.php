@@ -10,6 +10,12 @@ if ($action === 'add_permission') {
 		echo $add_perm;
 }
 
+if ($action === 'revoke_permission') {
+	$rev_perm = $crud->revoke_permission();
+	if ($rev_perm)
+		echo $rev_perm;
+}
+
 if($action == 'login'){
 	$login = $crud->login();
 	if($login)

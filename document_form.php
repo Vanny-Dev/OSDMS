@@ -1,3 +1,8 @@
+<?php
+include_once "db_connect.php";
+$db = $conn;
+?>
+
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-body">
@@ -126,6 +131,17 @@
             data-toggle="modal" data-target="#addPermModal"
           >Add Permission to Users</button>
         <?php endif; ?>
+        <script>
+          document.getElementById("add_perm").addEventListener("click", () => {
+            <?php
+              if (IS_EDIT) {
+                $stmt = $conn->prepare("SELECT * FROM permissions WHERE document_id = ? LIMIT 1");
+                $stmt->execute([$_GET['id']]);
+                $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+              }
+            ?>
+          });
+        </script>
     		<div class="d-flex w-100 justify-content-center align-items-center">
     			<button class="btn btn-flat bg-gradient-primary mx-2" form="manage-upload">Save</button>
     			<button class="btn btn-flat bg-gradient-secondary mx-2" type="button">Cancel</button>
@@ -134,6 +150,7 @@
       <?php include "modals/add_perm_modal.php" ?>
 	</div>
 </div>
+
 <script>
   $('#default-preview .delete').click(function(){
       var uuid = $(this).attr('data-uuid');

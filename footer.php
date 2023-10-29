@@ -100,11 +100,10 @@
 	    //   $('#alert_toast').addClass('bg-warning')
 	    // $('#alert_toast .toast-body').html($msg)
 	    // $('#alert_toast').toast({delay:3000}).toast('show');
-	    console.log('TEST')
-	      Toast.fire({
-	        icon: $bg,
-	        title: $msg
-	      })
+      Toast.fire({
+        icon: $bg,
+        title: $msg
+      })
 	  }
 $(function () {
   bsCustomFileInput.init();

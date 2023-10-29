@@ -23,6 +23,9 @@
           <input type="datetime-local" class="my-2" id="datetime">
           <div class="d-none text-danger" id="invalidDate">Invalid date</div>
         </div>
+        <?php if (count($arr) !== 0): ?>
+          <button class="btn btn-primary">Revoke Permission</button>
+        <?php endif ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -32,8 +35,7 @@
   </div>
 </div>
 
-<script>
-
+<script>  
 const expiryOptions = $(".radio-expiry-option");
 
 for (const className of "d-flex align-items-center".split(" ")) {
@@ -70,7 +72,11 @@ dt.change(e => {
   isValid = !isInvalid;
 });
 
-$("#addPermission").click(() => {
+const btnAdd = $("#addPermission");
+
+btnAdd.attr("disabled", <?php echo !count($arr) ? "false" : "true" ?>);
+
+btnAdd.click(() => {
   const radioId = radioOptions.find(x => x.checked).id;
 
   if (!isValid && radioId === 'expiry') {
@@ -87,8 +93,8 @@ $("#addPermission").click(() => {
 
   fetch("/ajax.php?action=add_permission", { method: "POST", body: data }).then(async resp => {
     const e=await resp.text();
-    console.log(e)
     if (e === '1'){
+      alert_toast("Permission added");
       $("#addPermModal").modal("hide");
     }
   });

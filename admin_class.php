@@ -15,6 +15,10 @@ Class Action {
 	    ob_end_flush();
 	}
 
+	function revoke_permission(){
+		
+	}
+
 	function add_permission(){
 		$documentId = $_POST['documentId'];
 		$dueDate = $_POST['dueDate'];
@@ -24,8 +28,10 @@ Class Action {
 			return 1;
 		} catch (Exception $e) {
 			if (str_contains(strtolower($e->getMessage()), "duplicate entry")) {
+				/* unique constraint failed */
 				return 2;
 			} else {
+				/* unknown error */
 				return 3;
 			}
 		}
