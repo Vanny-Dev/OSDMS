@@ -54,6 +54,8 @@ header("location:index.php?page=home");
   						<div class="form-group">
   							<label for="password" class="control-label text-dark">Password</label>
   							<input type="password" id="password" name="password" class="form-control form-control-sm">
+							<input type="checkbox" onclick="showPass()"><br>
+							<label for="" style="z-index: 9999; color: #343a40!important;">Show Password</label>
   						</div>
   						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
   					</form>
@@ -97,5 +99,14 @@ header("location:index.php?page=home");
         val = val.replace(/[^0-9 \,]/, '');
         $(this).val(val)
     })
+
+	function showPass() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
 </script>	
 </html>

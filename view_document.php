@@ -7,6 +7,20 @@ foreach($qry as $k => $v){
 	$$k = $v;
 }
 ?>
+
+<?php
+$getUserId = $conn->query("select firstname,lastname from users where id = '{$_SESSION['login_id']}' ")->fetch_array();
+//echo $getUserId['firstname'] . $getUserId['lastname'];
+
+$getDocumentTitle = $conn->query("SELECT title FROM documents where md5(id) = '{$_GET['id']}' ")->fetch_array();
+//echo $getDocumentTitle['title'];
+
+date_default_timezone_set('Asia/Manila');
+$date = date('m/d/Y h:i:s a', time());
+//echo $date;
+
+$viewQuery = $conn->query("INSERT INTO viewer (id, viewer_id, document_id, document_title, date) VALUES ('', '". $getUserId['firstname'] . ' ' .  $getUserId['lastname'] ."', '".$_GET['id']."', '". $getDocumentTitle['title'] ."', '". $date."')");
+?>
 <div class="col-lg-12">
       <?php if(isset($_SESSION['login_id'])): ?>
 	<div class="row">

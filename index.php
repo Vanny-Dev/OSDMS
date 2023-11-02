@@ -113,14 +113,18 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong><p>Developed by Jovanny & Clark</p></strong>
+  <div class="float-left d-none d-sm-inline-block">
+  <b>Developed by Jovanny & Clark</b>
+  </div>
     
     <div class="float-right d-none d-sm-inline-block">
+    
       <b>Online School Document Management Systems</b>
-    </div>
+      </div>
   </footer>
 </div>
-<!-- ./wrapper -->
+<!-- ./wrapper -->XZ
+*
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
