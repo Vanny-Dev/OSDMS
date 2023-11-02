@@ -61,7 +61,7 @@ header("location:index.php?page=home");
 </div>
 							
   						</div>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary" data-toggle="popover" title="This is the login button" data-content="And here's some amazing content. It's very engaging. Right?">Login</button></center>
+  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
   					</form>
   				</div>
   			</div>

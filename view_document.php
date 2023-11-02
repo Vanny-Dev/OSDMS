@@ -24,7 +24,7 @@ $date = date('m/d/Y h:i:s a', time());
 
 if($_SESSION['isViewed'.$_GET['id'].$_SESSION['login_id']] != 1) {
 	$_SESSION['isViewed'.$_GET['id'].$_SESSION['login_id']] = 1;
-	$viewQuery = $conn->query("INSERT INTO viewer (id, viewer_id, document_id, document_title, date) VALUES ('', '". $getUserId['firstname'] . ' ' .  $getUserId['lastname'] ."', '".$getDocumentId['id']."', '". $getDocumentTitle['title'] ."', '". $date."')");
+	$viewQuery = $conn->query("INSERT INTO viewer (id, viewer_id, document_id, document_title, date) VALUES (0, '". $getUserId['firstname'] . ' ' .  $getUserId['lastname'] ."', '".$getDocumentId['id']."', '". $getDocumentTitle['title'] ."', '". $date."')");
 }
 
 ?>
