@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 include_once "db_connect.php";
 $db = $conn;
 ?>
@@ -147,7 +148,7 @@ $db = $conn;
     			<button class="btn btn-flat bg-gradient-secondary mx-2" type="button" onclick="cancel()">Cancel</button>
     		</div>
     	</div>
-      <?php include "modals/add_perm_modal.php" ?>
+      <?php //include "modals/add_perm_modal.php" ?>
 	</div>
 </div>
 

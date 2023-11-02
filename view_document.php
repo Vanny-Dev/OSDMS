@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 include 'db_connect.php';
 $qry = $conn->query("SELECT * FROM documents where md5(id) = '{$_GET['id']}' ")->fetch_array();
 foreach($qry as $k => $v){
@@ -15,11 +16,17 @@ $getUserId = $conn->query("select firstname,lastname from users where id = '{$_S
 $getDocumentTitle = $conn->query("SELECT title FROM documents where md5(id) = '{$_GET['id']}' ")->fetch_array();
 //echo $getDocumentTitle['title'];
 
+$getDocumentId = $conn->query("SELECT id FROM documents where md5(id) = '{$_GET['id']}' ")->fetch_array();
+
 date_default_timezone_set('Asia/Manila');
 $date = date('m/d/Y h:i:s a', time());
 //echo $date;
 
-$viewQuery = $conn->query("INSERT INTO viewer (id, viewer_id, document_id, document_title, date) VALUES ('', '". $getUserId['firstname'] . ' ' .  $getUserId['lastname'] ."', '".$_GET['id']."', '". $getDocumentTitle['title'] ."', '". $date."')");
+if($_SESSION['isViewed'.$_GET['id'].$_SESSION['login_id']] != 1) {
+	$_SESSION['isViewed'.$_GET['id'].$_SESSION['login_id']] = 1;
+	$viewQuery = $conn->query("INSERT INTO viewer (id, viewer_id, document_id, document_title, date) VALUES ('', '". $getUserId['firstname'] . ' ' .  $getUserId['lastname'] ."', '".$getDocumentId['id']."', '". $getDocumentTitle['title'] ."', '". $date."')");
+}
+
 ?>
 <div class="col-lg-12">
       <?php if(isset($_SESSION['login_id'])): ?>

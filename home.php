@@ -117,6 +117,68 @@
           </div>
           <!-- /.col -->
       </div>
+
+      <div class="row">
+<div class="col-12">
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Viewed Documents</h3>
+<div class="card-tools">
+<div class="input-group input-group-sm" style="width: 150px;">
+<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+<div class="input-group-append">
+<button type="submit" class="btn btn-default">
+<i class="fas fa-search"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card-body table-responsive p-0">
+<table class="table table-hover text-nowrap">
+<thead>
+<tr>
+<th>Viewer</th>
+<th>Document Name</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+  <?php 
+  
+  $show = false;
+
+  foreach ($conn->query("SELECT * FROM viewer ORDER BY id DESC") as $row ):
+    $checkQuery = $conn->query("SELECT user_id FROM documents where id = '".$row['document_id']."'")->fetch_array();
+    if($checkQuery['user_id'] == $_SESSION['login_id']) {
+      $show = true;
+    }
+  ?>
+
+<?php if ($show == true) {echo '<tr>';} ?>
+<?php if ($show == true) {echo '<td>';} ?>
+<?php  if ($show == true){echo $row['viewer_id'];} ?>
+<?php if ($show == true) {echo '</td>';} ?>
+<?php if ($show == true) {echo '<td>';} ?>
+<?php if ($show == true){echo $row['document_title'];} ?>
+<?php if ($show == true) {echo '</td>';} ?>
+<?php if ($show == true) {echo '<td>';} ?>
+<?php  if ($show == true){echo $row['date'];} ?>
+<?php if ($show == true) {echo '</td>';} ?>
+<?php if ($show == true) {echo '</tr>';} ?>
+
+<?php endforeach; ?> 
+
+ 
+</tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
       
           
 <?php endif; ?>
