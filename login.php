@@ -42,7 +42,7 @@ header("location:index.php?page=home");
   <main id="main" >
   	
   		<div class="align-self-center w-100">
-		<h4 class="text-white text-center"><b>Online Document Sharing System</b></h4>
+		<h4 class="text-white text-center"><b>Online School Document Management System</b></h4>
   		<div id="login-center" class="bg-dark row justify-content-center">
   			<div class="card col-md-4">
   				<div class="card-body">
@@ -53,11 +53,15 @@ header("location:index.php?page=home");
   						</div>
   						<div class="form-group">
   							<label for="password" class="control-label text-dark">Password</label>
+							  <div class="input-group mb-3"> 
   							<input type="password" id="password" name="password" class="form-control form-control-sm">
-							<input type="checkbox" onclick="showPass()"><br>
-							<label for="" style="z-index: 9999; color: #343a40!important;">Show Password</label>
+							  <div class="input-group-append">
+<span class="input-group-text" onclick="showPass()" style="cursor: pointer;"><i class="fas fa-eye"></i></span>
+</div>
+</div>
+							
   						</div>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
+  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary" data-toggle="popover" title="This is the login button" data-content="And here's some amazing content. It's very engaging. Right?">Login</button></center>
   					</form>
   				</div>
   			</div>
